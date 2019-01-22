@@ -13,12 +13,12 @@
     ],
 
     "animals": [
-        { "id": 1, "name": "Doodles" },
-        { "id": 2, "name": "Jack" },
-        { "id": 3, "name": "Angus" },
-        { "id": 4, "name": "Henley" },
-        { "id": 5, "name": "Derkins" },
-        { "id": 6, "name": "Checkers" }
+        { "id": 1, "name": "Doodles", "breed": "Pitbull" },
+        { "id": 2, "name": "Jack", "breed": "Husky" },
+        { "id": 3, "name": "Angus", "breed": "Chihuaua" },
+        { "id": 4, "name": "Henley", "breed": "Great Dane" },
+        { "id": 5, "name": "Derkins", "breed": "Pitbull" },
+        { "id": 6, "name": "Checkers", "breed": "Basically A Cat" }
     ],
 
     "owners": [

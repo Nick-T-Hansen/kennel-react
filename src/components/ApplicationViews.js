@@ -8,6 +8,7 @@ import AnimalManager from "../modules/AnimalManager"
 import LocationManager from "../modules/LocationManager"
 import EmployeeManager from "../modules/EmployeeManager"
 import OwnerManager from "../modules/OwnerManager"
+import AnimalDetail from './animal/AnimalDetail'
 
 
 class ApplicationViews extends Component {
@@ -50,7 +51,7 @@ class ApplicationViews extends Component {
         .then(employees => this.setState({
             employees: employees
         })
-      )
+        )
     }
 
     deleteOwner = id => {
@@ -63,7 +64,7 @@ class ApplicationViews extends Component {
         .then(owners => this.setState({
             owners: owners
         })
-      )
+        )
     }
 
     componentDidMount() {
@@ -96,8 +97,11 @@ class ApplicationViews extends Component {
                 <Route exact path="/" render={(props) => {
                     return <LocationList locations={this.state.locations} />
                 }} />
-                <Route path="/animals" render={(props) => {
-                    return <AnimalList deleteAnimal={this.deleteAnimal} animals={this.state.animals} />
+                <Route exact path="/animals" render={(props) => {
+                    return <AnimalList animals={this.state.animals} />
+                }} />
+                <Route path="/animals/:animalId(\d+)" render={(props) => {
+                    return <AnimalDetail {...props} deleteAnimal={this.deleteAnimal} animals={this.state.animals} />
                 }} />
                 <Route path="/employees" render={(props) => {
                     return <EmployeeList deleteEmployee= {this.deleteEmployee} employees={this.state.employees} />
