@@ -9,6 +9,8 @@ import LocationManager from "../modules/LocationManager"
 import EmployeeManager from "../modules/EmployeeManager"
 import OwnerManager from "../modules/OwnerManager"
 import AnimalDetail from './animal/AnimalDetail'
+import OwnerDetail from './owner/OwnerDetail'
+import EmployeeDetail from './employee/EmployeeDetail'
 
 
 class ApplicationViews extends Component {
@@ -103,11 +105,17 @@ class ApplicationViews extends Component {
                 <Route path="/animals/:animalId(\d+)" render={(props) => {
                     return <AnimalDetail {...props} deleteAnimal={this.deleteAnimal} animals={this.state.animals} />
                 }} />
-                <Route path="/employees" render={(props) => {
+                <Route exact path="/employees" render={(props) => {
                     return <EmployeeList deleteEmployee= {this.deleteEmployee} employees={this.state.employees} />
                 }} />
-                <Route path="/owners" render={(props) => {
+                   <Route path="/employees/:employeeId(\d+)" render={(props) => {
+                    return <EmployeeDetail {...props} deleteEmployee={this.deleteEmployee} employees={this.state.employees} />
+                }} />
+                <Route exact path="/owners" render={(props) => {
                     return <OwnerList deleteOwners= {this.deleteOwners} owners ={this.state.owners} />
+                }} />
+                <Route path="/owners/:ownerId(\d+)" render={(props) => {
+                    return <OwnerDetail {...props} deleteOwner={this.deleteOwner} owners={this.state.owners} />
                 }} />
             </React.Fragment>
         )
