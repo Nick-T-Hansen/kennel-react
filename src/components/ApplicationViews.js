@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from "react-router-dom"
 import React, { Component } from "react"
 import AnimalList from './animal/AnimalList'
 import LocationList from './location/LocationList'
@@ -12,6 +12,7 @@ import AnimalDetail from './animal/AnimalDetail'
 import OwnerDetail from './owner/OwnerDetail'
 import EmployeeDetail from './employee/EmployeeDetail'
 import AnimalForm from './animal/AnimalForm'
+import Login from './authentication/Login'
 
 
 class ApplicationViews extends Component {
@@ -22,6 +23,9 @@ class ApplicationViews extends Component {
         locations: [],
         owners: []
     }
+
+    // Check if credentials are in local storage
+    isAuthenticated = () => sessionStorage.getItem("credentials") !== null;
 
     deleteAnimal = (id) => {
         return AnimalManager.removeAndList(id)
@@ -105,31 +109,65 @@ class ApplicationViews extends Component {
     render() {
         return (
             <React.Fragment>
+                <Route path="/login" component={Login} />
                 <Route exact path="/" render={(props) => {
+                    if (this.isAuthenticated()) {
                     return <LocationList locations={this.state.locations} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 <Route exact path="/animals" render={(props) => {
+                    if (this.isAuthenticated()) {
                     return <AnimalList {...props} deleteAnimal={this.deleteAnimal}animals={this.state.animals} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 <Route path="/animals/new" render={(props) => {
+                    if (this.isAuthenticated()) {
                     return <AnimalForm {...props} addAnimal={this.addAnimal} employees={this.state.employees} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 <Route path="/animals/:animalId(\d+)" render={(props) => {
+                    if (this.isAuthenticated()) {
                     return <AnimalDetail {...props} deleteAnimal={this.deleteAnimal} animals={this.state.animals} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
-                <Route exact path="/employees" render={(props) => {
-                    return <EmployeeList deleteEmployee= {this.deleteEmployee} employees={this.state.employees} />
+               <Route exact path="/employees" render={props => {
+                    if (this.isAuthenticated()) {
+                        return <EmployeeList deleteEmployee={this.deleteEmployee}
+                                            employees={this.state.employees} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                     <Route path="/employees/:employeeId(\d+)" render={(props) => {
+                        if(this.isAuthenticated()) {
                     return <EmployeeDetail {...props} deleteEmployee={this.deleteEmployee} employees={this.state.employees} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
-
                 <Route exact path="/owners" render={(props) => {
+                    if(this.isAuthenticated()) {
                     return <OwnerList deleteOwners= {this.deleteOwners} owners ={this.state.owners} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 <Route path="/owners/:ownerId(\d+)" render={(props) => {
+                    if(this.isAuthenticated()){
                     return <OwnerDetail {...props} deleteOwner={this.deleteOwner} owners={this.state.owners} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
+
             </React.Fragment>
         )
     }
