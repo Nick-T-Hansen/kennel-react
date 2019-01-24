@@ -63,6 +63,12 @@
       "id": 6,
       "name": "Checkers",
       "breed": "Basically A Cat"
+    },
+    {
+      "name": "Sofi",
+      "breed": "Cat",
+      "employeeId": 1,
+      "id": 7
     }
   ],
   "owners": [
